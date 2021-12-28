@@ -52,5 +52,5 @@ const printTest = (arr, target) => {
   console.log(`linear: ${linear}, binary: ${binary}`)
 }
 
-const arr = [2, 3, 4, 5]
+const arr = [2, 3, 4, 5];
 printTest(arr, 4);
