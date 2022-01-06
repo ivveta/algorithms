@@ -1,4 +1,5 @@
-const linearIndexSearch = (arr, target) => {
+// O(n)
+const linearSearch = (arr, target) => {
   for (let i = 0; i < arr.length; i++) {
     if (arr[i] === target) {
       return i;
@@ -8,8 +9,9 @@ const linearIndexSearch = (arr, target) => {
   return -1;
 }
 
+// O(log(n))
 // We don't need recursion function here, we can just work with element's index
-const binaryIndexSearch = (arr, target) => {
+const binarySearch = (arr, target) => {
   let start = 0;
   let end = arr.length - 1;
 
@@ -38,8 +40,8 @@ const binaryIndexSearch = (arr, target) => {
 }
 
 const testSearch = (arr, target) => {
-  const linear = linearIndexSearch(arr, target);
-  const binary = binaryIndexSearch(arr, target);
+  const linear = linearSearch(arr, target);
+  const binary = binarySearch(arr, target);
 
   return {
     linear,

@@ -12,6 +12,7 @@ const findSmallestElementIndexInArray = arr => {
   return smallestIndex;
 };
 
+// O(n)
 const selectionSort = arr => {
   const workingArr = [...arr];
   const sortedArr = [];
@@ -27,5 +28,31 @@ const selectionSort = arr => {
   return sortedArr;
 }
 
-const arr = [2, 3, 100, 4, 5];
-console.log(selectionSort(arr));
+// O(log(n))
+const quickSort = (list) => {
+  if (list.length <= 1) {
+    return list;
+  }
+
+  // pivot - random element
+  const pivot = list[Math.ceil(list.length/2)];
+  const less = [];
+  const greater = [];
+
+  for (let el of list) {
+    if (el < pivot) {
+      less.push(el)
+    }
+    if (el > pivot) {
+      greater.push(el)
+    }
+  }
+
+
+  return [...quickSort(less), pivot, ...quickSort(greater)]
+
+};
+
+const arr = [2, 3, 100, 4, 5, 73];
+console.log(`selectionSort: [${selectionSort(arr)}]`);
+console.log(`quickSort: [${quickSort(arr)}]`);
