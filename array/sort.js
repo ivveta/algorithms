@@ -50,7 +50,6 @@ const quickSort = (list) => {
 
 
   return [...quickSort(less), pivot, ...quickSort(greater)]
-
 };
 
 const arr = [2, 3, 100, 4, 5, 73];
