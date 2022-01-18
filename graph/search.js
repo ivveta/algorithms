@@ -1,10 +1,9 @@
-const breadthFirstSearch = (graph, rootNode, isGoalFun) => {
-  const queue = [];
+const breadthFirstSearch = (graph, rootNode, isTargetCallback) => {
+  const queue = [...graph[rootNode]];
   const checkedNodes = [];
 
-  queue.push(...graph[rootNode]);
-
   //only one loop
+  // fifo
   while (queue.length > 0) {
     const node = queue.shift();
 
@@ -12,7 +11,7 @@ const breadthFirstSearch = (graph, rootNode, isGoalFun) => {
       continue;
     }
 
-    if (isGoalFun(node)) {
+    if (isTargetCallback(node)) {
       return node;
     }
 
@@ -23,6 +22,28 @@ const breadthFirstSearch = (graph, rootNode, isGoalFun) => {
   return 'no exists';
 };
 
+const depthFirstSearch = (graph, rootNode, isTargetCallback) => {
+  const stack = [...graph[rootNode]];
+  const checkedNodes = [];
+
+  // lifo
+  while (stack.length > 0) {
+    const node = stack.pop();
+
+    if(checkedNodes.includes(node)){
+      continue;
+    }
+
+    if(isTargetCallback(node)){
+      return node;
+    }
+
+    checkedNodes.push(node);
+    stack.push(...graph[node]);
+  }
+
+  return 'no exists';
+}
 
 const testGraph = {
   'you': ['alice', 'bob', 'claire'],
@@ -40,7 +61,7 @@ const testGraph = {
 const isFourLettersName = name => name && name.length === 4;
 
 // additional, intuitive search
-const twoLoops = (graph, isGoalFun) => {
+const twoLoops = (graph, isTargetCallback) => {
   const checkedNodes = [];
 
   for (let node in graph) {
@@ -48,7 +69,7 @@ const twoLoops = (graph, isGoalFun) => {
       if (checkedNodes.includes(neighbor)) {
         continue;
       }
-      if (isGoalFun(neighbor) === true) {
+      if (isTargetCallback(neighbor) === true) {
         return neighbor;
       }
 
@@ -61,3 +82,4 @@ const twoLoops = (graph, isGoalFun) => {
 
 console.log('twoLoops', twoLoops(testGraph, isFourLettersName))
 console.log('breadthFirstSearch', breadthFirstSearch(testGraph, 'you', isFourLettersName))
+console.log('depthFirstSearch', depthFirstSearch(testGraph, 'you', isFourLettersName))
